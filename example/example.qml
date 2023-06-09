@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Controls.Material
+import QtQuick.Dialogs
 import Headwind
 
 Window {
@@ -31,7 +32,7 @@ Window {
             width: 200
 
             Text {
-                text: "radius"
+                text: "Radius"
             }
             ColumnLayout {
                 Slider {
@@ -73,7 +74,7 @@ Window {
             }
 
             Text {
-                text: "boder"
+                text: "Boder"
                 topPadding: 20
             }
             ColumnLayout {
@@ -87,6 +88,40 @@ Window {
                     }
                 }
             }
+
+            Text {
+                text: "Color"
+                topPadding: 20
+            }
+            RowLayout {
+                Button {
+                    text: "boder"
+                    onClicked: {
+                        colorDialog.open()
+                        let func = function () {
+                            console.log(colorDialog.selectedColor)
+                            roundrec.boderColor = colorDialog.selectedColor
+                            colorDialog.accepted.disconnect(func)
+                        }
+                        colorDialog.accepted.connect(func)
+                    }
+                }
+                Button {
+                    text: "background"
+                    onClicked: {
+                        colorDialog.open()
+                        let func = function () {
+                            roundrec.color = colorDialog.selectedColor
+                            colorDialog.accepted.disconnect(func)
+                        }
+                        colorDialog.accepted.connect(func)
+                    }
+                }
+            }
         }
+    }
+
+    ColorDialog {
+        id: colorDialog
     }
 }
