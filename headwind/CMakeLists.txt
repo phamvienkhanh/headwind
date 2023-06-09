@@ -8,24 +8,26 @@ set(QT_QML_OUTPUT_DIRECTORY  ${CMAKE_BINARY_DIR})
 
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
-set(QMLS
-    Controls/HwRectangle.qml
+set(QMLS_CONTROLS
 )
 
-set(SOURCES
-    src/headwind.cpp src/headwind.h
-    src/macros.h
+set(CPP_CONTROLS
+    Controls/hwrectangle.cpp Controls/hwrectangle.h
 )
 
-source_group(Source FILES ${SOURCES})
-source_group(Qml FILES ${QMLS})
+set(UTILS
+    Utils/macros.h
+)
+
+source_group(Controls FILES ${CPP_CONTROLS} ${QMLS_CONTROLS})
+source_group(Utils FILES ${UTILS})
 
 qt_add_library(headwind SHARED)
 qt_add_qml_module(headwind
     URI Headwind
     VERSION 1.0
-    QML_FILES ${QMLS}
-    SOURCES ${SOURCES}
+    QML_FILES ${QMLS_CONTROLS}
+    SOURCES ${CPP_CONTROLS} ${UTILS}
 )
 
 set_target_properties(headwind PROPERTIES
@@ -41,4 +43,4 @@ target_compile_definitions(headwind
 target_link_libraries(headwind
     PRIVATE Qt6::Quick)
 
-target_include_directories(headwind PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_include_directories(headwind PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Controls)
