@@ -6,29 +6,14 @@ import Headwind
 
 Window {
     width: 1000
-    height: 1000
+    height: 750
     visible: true
-    title: qsTr("Example Project")
+    title: qsTr("Example")
     color: "grey"
 
     Item {
         anchors.fill: parent
 
-        //    Rectangle {
-        //        x: 450
-        //        y: 100
-        //        width: 300
-        //        height: 300
-        //        color: "red"
-        //        border.width: 2
-        //        border.color: "cyan"
-        //        radius: 150
-        //    }
-
-            //    Rectangle {
-            //        anchors.fill: roundrec
-            //        color: "black"
-            //    }
         HwRectangle {
             id: roundrec
             x: 100
@@ -38,7 +23,7 @@ Window {
             radius: [0, 0, 0, 0]
             color: "cyan"
             boderColor: "red"
-            boderWidth: 1
+            boderWidth: 0
         }
 
         ColumnLayout {
@@ -93,7 +78,7 @@ Window {
             }
             ColumnLayout {
                 Slider {
-                    from: 1
+                    from: 0
                     value: 0
                     to: 50
                     stepSize: 1

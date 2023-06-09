@@ -25,21 +25,22 @@ void HwRectangle::paint(QPainter *painter)
 
     QPainterPath path;
     path.moveTo(x + _radius[0], y);
-    if(_radius[0]) path.arcTo(x, y, 2 * _radius[0], 2 * _radius[0], 90.0, 90.0);
+    if (_radius[0]) path.arcTo(x, y, 2 * _radius[0], 2 * _radius[0], 90.0, 90.0);
 
-    if (y + h - _radius[0] - _radius[3] > (y + h) / 2) path.lineTo(x, y + h - _radius[3]);
-    if(_radius[3]) path.arcTo(x, y + h - 2 * _radius[3], 2 * _radius[3], 2 * _radius[3], 180.0, 90.0);
+    path.lineTo(x, y + h - _radius[3]);
+    if (_radius[3]) path.arcTo(x, y + h - 2 * _radius[3], 2 * _radius[3], 2 * _radius[3], 180.0, 90.0);
 
-    if (x + w - _radius[3] - _radius[2] > (x + w) / 2) path.lineTo(x + w - _radius[2], y + h);
-    if(_radius[2]) path.arcTo(x + w - 2 * _radius[2], y + h - 2 * _radius[2], 2 * _radius[2], 2 * _radius[2], 270.0, 90.0);
+    path.lineTo(x + w - _radius[2], y + h);
+    if (_radius[2])
+        path.arcTo(x + w - 2 * _radius[2], y + h - 2 * _radius[2], 2 * _radius[2], 2 * _radius[2], 270.0, 90.0);
 
     path.lineTo(x + w, y + _radius[1]);
-    if(_radius[1]) path.arcTo(x + w - 2 * _radius[1], y, 2 * _radius[1], 2 * _radius[1], 0.0, 90.0);
+    if (_radius[1]) path.arcTo(x + w - 2 * _radius[1], y, 2 * _radius[1], 2 * _radius[1], 0.0, 90.0);
 
     path.lineTo(x + _radius[0], y);
 
-//    QBrush brush(_color);
-//    painter->fillPath(path, brush);
+    QBrush brush(_color);
+    painter->fillPath(path, brush);
 
     if (_boderWidth) {
         QPen pen(_boderColor, _boderWidth, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin);
