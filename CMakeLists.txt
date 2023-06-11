@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(headwind VERSION 0.1 LANGUAGES CXX)
+project(Headwind VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -14,11 +14,18 @@ find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 add_subdirectory(headwind)
 
 # Example Project
-qt_add_executable(ExampleProject example/example.cpp)
-qt_add_qml_module(ExampleProject
-    URI ExampleProjectApp
+qt_add_executable(Example example/example.cpp)
+qt_add_qml_module(Example
+    URI "/"
+    RESOURCE_PREFIX "/"
     VERSION 1.0
-    QML_FILES example/example.qml
+    QML_FILES
+        example/example.qml
+        example/Pages/TstHwRectangle.qml
+        example/Pages/TstHwRoundedImage.qml
+    RESOURCES
+        example/images/testroundimage.jpg
+
 )
-target_link_libraries(ExampleProject PRIVATE Qt6::Quick headwind)
-target_compile_definitions(ExampleProject PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+target_link_libraries(Example PRIVATE Qt6::Quick headwind)
+target_compile_definitions(Example PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
