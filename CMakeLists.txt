@@ -23,6 +23,7 @@ qt_add_qml_module(Example
         example/example.qml
         example/Pages/TstHwRectangle.qml
         example/Pages/TstHwRoundedImage.qml
+        example/Pages/TstHwGaussianBlur.qml
     RESOURCES
         example/images/testroundimage.jpg
 

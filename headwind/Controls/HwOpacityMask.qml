@@ -1,9 +1,18 @@
 import QtQuick
 
-ShaderEffect {
-    property var source: null
-    property var maskSource: null
+Item {
+    id: rootItem
 
-    layer.enabled: true
-    fragmentShader: "qrc:/Headwind/Shaders/opacitymask.frag.qsb"
+    property variant source
+    property variant maskSource
+
+    ShaderEffect {
+        id: shaderItem
+        property variant source: rootItem.source
+        property variant maskSource: rootItem.maskSource
+
+        anchors.fill: parent
+
+        fragmentShader: "qrc:/Headwind/Shaders/opacitymask.frag.qsb"
+    }
 }

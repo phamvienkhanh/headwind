@@ -11,6 +11,7 @@ find_package(Qt6 6.2 COMPONENTS Quick ShaderTools REQUIRED)
 set(QMLS_CONTROLS
     Controls/HwOpacityMask.qml
     Controls/HwRoundedImage.qml
+    Controls/HwGaussianBlur.qml
 )
 
 set(CPP_CONTROLS
@@ -23,6 +24,7 @@ set(UTILS
 
 set(SHADERS
     Shaders/opacitymask.frag
+    Shaders/gaussianblur.frag
 )
 
 source_group(Controls FILES ${CPP_CONTROLS} ${QMLS_CONTROLS})

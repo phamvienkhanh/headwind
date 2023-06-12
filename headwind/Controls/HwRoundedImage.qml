@@ -17,6 +17,7 @@ Item {
 
     HwRectangle {
         id: maskRec
+
         anchors.fill: imgSource
         radius: [0, 0, 0, 0]
         color: "#FF0000"

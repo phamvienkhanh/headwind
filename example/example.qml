@@ -10,6 +10,6 @@ Window {
 
     StackView {
         anchors.fill: parent
-        initialItem: "Pages/TstHwRoundedImage.qml"
+        initialItem: "Pages/TstHwGaussianBlur.qml"
     }
 }
