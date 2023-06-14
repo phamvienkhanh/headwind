@@ -1,4 +1,5 @@
 import QtQuick
+import Qt5Compat.GraphicalEffects
 import Headwind
 
 Item {
@@ -13,6 +14,7 @@ Item {
 
         layer.enabled: true
         visible: false
+        cache: false
     }
 
     HwRectangle {
@@ -25,9 +27,10 @@ Item {
         layer.enabled: true
     }
 
-    HwOpacityMask {
+    OpacityMask {
         anchors.fill: imgSource
         source: imgSource
         maskSource: maskRec
+        cached: false
     }
 }

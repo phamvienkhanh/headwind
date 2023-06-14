@@ -10,6 +10,6 @@ Window {
 
     StackView {
         anchors.fill: parent
-        initialItem: "Pages/TstHwGaussianBlur.qml"
+        initialItem: "Pages/TstHwBaseItemDelegate.qml"
     }
 }
