@@ -6,7 +6,7 @@ Item {
 
     HwBaseItemDelegate {
         id: xxx
-        x: 100
+        x: 50
         y: 100
         width: {
             if(boundAutoSize.checkState !== Qt.Checked) {
