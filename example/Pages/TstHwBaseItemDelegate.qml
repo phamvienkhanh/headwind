@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import Headwind
 
 Item {
@@ -72,11 +71,11 @@ Item {
 
         background: Rectangle {
             color: xxx.hovered ? "deeppink" : "black"
-            radius: [20, 10, 20, 10]
+            opacity: xxx.pressed ? 0.2 : 1
         }
 
         onClicked: {
-            console.log("HwBaseItemDelegate clicked")
+            
         }
     }
 

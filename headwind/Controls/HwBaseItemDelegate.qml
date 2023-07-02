@@ -9,6 +9,7 @@ Item {
     property alias centerColumn: centerColumn
     property alias background: loaderBackground.sourceComponent
     property alias hovered: hoveredHandler.hovered
+    property alias pressed: hitZone.pressed
 
     property alias slot1: loaderSlot1.sourceComponent
     property alias slot2: loaderSlot2.sourceComponent
@@ -37,6 +38,7 @@ Item {
     clip: true
     
     MouseArea {
+        id: hitZone
         anchors.fill: parent        
         onClicked: function (mouse) {
             rootItem.clicked()

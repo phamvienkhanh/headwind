@@ -18,8 +18,8 @@ Rectangle {
             target: rootItem
             properties: "width,height"
             from: 0
-            to: maxSize
-            duration: 600
+            to: rootItem.maxSize
+            duration: 1000
             easing {
                 type: Easing.OutQuad
             }
@@ -27,9 +27,9 @@ Rectangle {
         NumberAnimation {                    
             target: rootItem
             properties: "opacity"
-            from: 0.3
+            from: 0.1
             to: 0
-            duration: 600
+            duration: 1000
             easing {
                 type: Easing.OutQuad
             }
