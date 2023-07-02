@@ -4,7 +4,7 @@ import Headwind
 
 Item {
 
-    HwBaseItemDelegate {
+    HwBaseItem {
         id: xxx
         x: 50
         y: 100

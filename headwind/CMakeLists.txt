@@ -10,8 +10,9 @@ find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
 set(QMLS_CONTROLS
     Controls/HwRoundedImage.qml
-    Controls/HwBaseItemDelegate.qml
+    Controls/HwBaseItem.qml
     Controls/HwRipple.qml
+    Controls/HwTextInput.qml
 )
 
 set(CPP_CONTROLS

@@ -19,8 +19,8 @@ Window {
             path: "Pages/TstHwRoundedImage.qml"
         }
         ListElement {
-            name: "HwBaseItemDelegate"
-            path: "Pages/TstHwBaseItemDelegate.qml"
+            name: "HwBaseItem"
+            path: "Pages/TstHwBaseItem.qml"
         }
     }
 
@@ -44,6 +44,6 @@ Window {
         width: parent.width - 150
         height: parent.height
         anchors.right: parent.right
-        initialItem: "Pages/TstHwBaseItemDelegate.qml"
+        initialItem: "Pages/TsHwTextInput.qml"
     }
 }
