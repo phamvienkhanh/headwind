@@ -24,9 +24,10 @@ Item {
         }
         content.spacing: 10
         content.padding: 10
-        centerColumn.spacing: 5
+        middleColumn.spacing: 5
 
         slot1: Rectangle {
+            id: slot1x
             width: visible ? slot1W.text : 0
             height: visible ? slot1H.text : 0  
             visible: slot1Show.checkState === Qt.Checked
@@ -57,10 +58,12 @@ Item {
                 }
                 onClicked: function (mouse) {
                     console.log("slot3 clicked")
+                    bg.color = "red"
                 }
             }
         }
         slot4: Rectangle {
+            id: slot4x
             width: visible ? slot4W.text : 0
             height: visible ? slot4H.text : 0  
             visible: slot4Show.checkState === Qt.Checked
@@ -70,8 +73,16 @@ Item {
         }
 
         background: Rectangle {
+            id: bg
             color: xxx.hovered ? "deeppink" : "black"
             opacity: xxx.pressed ? 0.2 : 1
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    slot4x.color = "red"
+                }
+            }
         }
 
         onClicked: {

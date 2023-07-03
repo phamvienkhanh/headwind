@@ -44,6 +44,6 @@ Window {
         width: parent.width - 150
         height: parent.height
         anchors.right: parent.right
-        initialItem: "Pages/TsHwTextInput.qml"
+        initialItem: "Pages/TstHwBaseItem.qml"
     }
 }
