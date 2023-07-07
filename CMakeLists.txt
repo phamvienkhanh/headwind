@@ -24,7 +24,9 @@ qt_add_qml_module(Example
         example/Pages/TstHwRectangle.qml
         example/Pages/TstHwRoundedImage.qml
         example/Pages/TstHwBaseItem.qml
-        example/Pages/TsHwTextInput.qml
+        example/Pages/TstHwTextInput.qml
+        example/Pages/TstHwBox.qml
+        example/Pages/TstHwPopover.qml
     RESOURCES
         example/images/testroundimage.jpg
 

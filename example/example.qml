@@ -1,3 +1,4 @@
+
 import QtQuick
 import QtQuick.Controls
 
@@ -22,6 +23,18 @@ Window {
             name: "HwBaseItem"
             path: "Pages/TstHwBaseItem.qml"
         }
+        ListElement {
+            name: "TsHwTextInput"
+            path: "Pages/TstHwTextInput.qml"
+        }
+        ListElement {
+            name: "TsHwBox"
+            path: "Pages/TstHwBox.qml"
+        }
+        ListElement {
+            name: "HwPopover"
+            path: "Pages/TstHwPopover.qml"
+        }
     }
 
     ListView {
@@ -32,9 +45,11 @@ Window {
         delegate: Button {
             width: 150
             height: 30
-            text: model.name
+            required property string name
+            required property string path
+            text: name
             onClicked: function () {
-                stackView.replace(model.path)
+                stackView.replace(path)
             }
         }
     }
@@ -44,6 +59,10 @@ Window {
         width: parent.width - 150
         height: parent.height
         anchors.right: parent.right
-        initialItem: "Pages/TstHwBaseItem.qml"
+        initialItem: "Pages/TstHwPopover.qml"
+    }
+
+    onActiveFocusItemChanged: {
+        console.log("onActiveFocusItemChanged ", mainWindow.activeFocusItem)
     }
 }

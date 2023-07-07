@@ -6,13 +6,22 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QT_QML_OUTPUT_DIRECTORY  ${CMAKE_BINARY_DIR})
 
-find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
+find_package(Qt6 6.5 COMPONENTS Quick Qml REQUIRED)
+
+qt_standard_project_setup(REQUIRES 6.5)
+
+#
+# Hidash
+#
+add_subdirectory(vendors/HiDash/hidash)
 
 set(QMLS_CONTROLS
     Controls/HwRoundedImage.qml
     Controls/HwBaseItem.qml
     Controls/HwRipple.qml
     Controls/HwTextInput.qml
+    Controls/HwBox.qml
+    Controls/HwPopover.qml
 )
 
 set(CPP_CONTROLS
@@ -44,7 +53,7 @@ set_target_properties(headwind PROPERTIES
 
 target_compile_definitions(headwind
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(headwind
-    PRIVATE Qt6::Quick)
+
+target_link_libraries(headwind PUBLIC Qt6::Quick HiDash)
 
 target_include_directories(headwind PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Controls)

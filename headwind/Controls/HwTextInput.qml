@@ -1,23 +1,37 @@
 import QtQuick
+import HiDash
 
 HwBaseItem {
+    id: rootItem
+
+    property alias iconLeft: rootItem.slot1
+    property alias iconRight: rootItem.slot4
+
+    property string placeholder: ""
+    property TextInput input: TextInput {       
+        width: rootItem.middleColumn.width
+        height: 30
+        verticalAlignment: TextInput.AlignVCenter
+        clip: true
+
+        Text {
+            id: txtPlaceHolder
+            anchors.fill: input
+            opacity: input.text ? 0 : 0.3
+            text: rootItem.placeholder
+            verticalAlignment: input.verticalAlignment
+        }
+    }
 
     content.spacing: 10
     content.padding: 10
+
+    Component.onCompleted: {
+        Qt.callLater(function () {
+            rootItem.slot2.forceActiveFocus()
+        })
+    }
     
-    slot1: Rectangle {
-        width: 30
-        height: 30
-        color: "black"
-    }
-    slot2: TextInput {
-        width: centerColumn.width
-        height: 30
-    }
-    slot4: Rectangle {
-        width: 30
-        height: 30
-        color: "black"
-    }
+    slot2: input
 }
 
