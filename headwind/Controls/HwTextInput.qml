@@ -1,5 +1,4 @@
 import QtQuick
-import HiDash
 
 HwBaseItem {
     id: rootItem
