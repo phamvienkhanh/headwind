@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Shapes
+import Qt5Compat.GraphicalEffects
 
 Popup {
     id: rootItem
@@ -155,9 +156,23 @@ Popup {
     scale: visible ? 1 : 0
     width: implicitWidth
 
-    background: Rectangle {
-        border.color: "#21be2b"
-        color: "transparent"
+    background: Item {
+        Rectangle {
+            id: realBg
+
+            anchors.fill: parent
+            color: "#408E91"
+            radius: 10
+        }
+
+        DropShadow {
+            anchors.fill: parent
+            color: "#80000000"
+            horizontalOffset: 3
+            radius: 8.0
+            source: realBg
+            verticalOffset: 3
+        }
     }
     contentItem: Rectangle {
         color: "transparent"
@@ -167,7 +182,7 @@ Popup {
         Text {
             id: t
 
-            color: "#21be2b"
+            color: "white"
             padding: 10
             text: rootItem.text
         }
@@ -194,12 +209,16 @@ Popup {
         visible: rootItem.visible
         width: rootItem.offset
 
+        Component.onCompleted: {
+            console.log("triangle.renderType ", triangle.rendererType);
+        }
+
         ShapePath {
-            fillColor: "#21be2b"
+            fillColor: "#408E91"
             strokeColor: "transparent"
             strokeWidth: 0
 
-            PathLine {
+            PathMove {
                 x: triangle.width
                 y: 0
             }
@@ -208,6 +227,19 @@ Popup {
                 x: triangle.width / 2
                 y: triangle.height
             }
+
+            PathLine {
+                x: 0
+                y: 0
+            }
+        }
+
+        Rectangle {
+            color: rootItem.background.color
+            height: rootItem.background.border.width
+            width: parent.width - 1.5
+            x: 1
+            y: -height
         }
     }
 }

@@ -15,11 +15,6 @@ HwRectangle::HwRectangle(QQuickItem *parent) : QQuickPaintedItem(parent)
     connect(this, &HwRectangle::boderWidthChanged, this, [&]() { update(); });
     connect(this, &HwRectangle::colorChanged, this, [&]() { update(); });
     connect(this, &HwRectangle::boderColorChanged, this, [&]() { update(); });
-
-    //    QDirIterator it(":", QDirIterator::Subdirectories);
-    //    while (it.hasNext()) {
-    //        qDebug() << it.next();
-    //    }
 }
 
 void HwRectangle::paint(QPainter *painter)
