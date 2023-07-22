@@ -6,8 +6,48 @@ import Qt5Compat.GraphicalEffects
 Popup {
     id: rootItem
 
+    property Item content: Item {
+        height: t.height
+        width: t.width
+
+        Text {
+            id: t
+
+            color: "white"
+            padding: 10
+            text: rootItem.text
+        }
+    }
+    property Item indicator: Shape {
+        id: triangle
+
+        height: 30
+        visible: rootItem.visible
+        width: 20
+
+        ShapePath {
+            fillColor: "black"
+            strokeColor: "transparent"
+            strokeWidth: 0
+
+            PathMove {
+                x: triangle.width
+                y: 0
+            }
+
+            PathLine {
+                x: triangle.width / 2
+                y: triangle.height
+            }
+
+            PathLine {
+                x: 0
+                y: 0
+            }
+        }
+    }
     property int offset: 10
-    property list<string> strategies: ["top", "right", "bottom", "left"]
+    property list<string> strategies: ["right", "bottom", "top", "left"]
     property Item target
     property string text
 
@@ -20,22 +60,22 @@ Popup {
             let aPos;
             function adjustVertical() {
                 let y = tgPos.y + (tg.height - rootItem.height) / 2;
-                let aY = (rootItem.height - rootItem.offset) / 2;
+                let aY = y + (rootItem.height - rootItem.indicator.width) / 2;
                 if (y < 0) {
-                    if (tgPos.y + tg.height - rootItem.offset > 0) {
+                    if (tgPos.y + tg.height - rootItem.indicator.width > 0) {
                         y = 0;
                         let mdo = (tgPos.y + tg.height / 2) - (rootItem.y + rootItem.height / 2);
-                        aY = (rootItem.height - rootItem.offset) / 2 + mdo;
+                        aY = (rootItem.height - rootItem.indicator.width) / 2 + mdo;
                         aY = Math.max(aY, 0);
                     } else {
                         return undefined;
                     }
                 } else if (y + rootItem.height > pH) {
-                    if (tgPos.y + rootItem.offset < pH) {
+                    if (tgPos.y + rootItem.indicator.width < pH) {
                         y = pH - rootItem.height;
                         let mdo = (tgPos.y + tg.height / 2) - (rootItem.y + rootItem.height / 2);
-                        aY = (rootItem.height - rootItem.offset) / 2 + mdo;
-                        aY = Math.min(aY, rootItem.height - rootItem.offset);
+                        aY = y + (rootItem.height - rootItem.indicator.width) / 2 + mdo;
+                        aY = Math.min(aY, y + rootItem.height - rootItem.indicator.width);
                     } else {
                         return undefined;
                     }
@@ -47,22 +87,22 @@ Popup {
             }
             function adjustHorizontal() {
                 let x = tgPos.x + (tg.width - rootItem.width) / 2;
-                let aX = (rootItem.width - rootItem.offset) / 2;
+                let aX = x + (rootItem.width - rootItem.indicator.height) / 2;
                 if (x < 0) {
-                    if (tgPos.x + tg.width - rootItem.offset > 0) {
+                    if (tgPos.x + tg.width - rootItem.indicator.height > 0) {
                         x = 0;
                         let mdo = (tgPos.x + tg.width / 2) - (rootItem.x + rootItem.width / 2);
-                        aX = (rootItem.width - rootItem.offset) / 2 + mdo;
+                        aX = (rootItem.width - rootItem.indicator.height) / 2 + mdo;
                         aX = Math.max(aX, 0);
                     } else {
                         return undefined;
                     }
                 } else if (x + rootItem.width > pW) {
-                    if (tgPos.x + rootItem.offset < pW) {
+                    if (tgPos.x + rootItem.indicator.height < pW) {
                         x = pW - rootItem.width;
                         let mdo = (tgPos.x + tg.width / 2) - (rootItem.x + rootItem.width / 2);
-                        aX = (rootItem.width - rootItem.offset) / 2 + mdo;
-                        aX = Math.min(aX, rootItem.width - rootItem.offset);
+                        aX = x + (rootItem.width - rootItem.indicator.height) / 2 + mdo;
+                        aX = Math.min(aX, x + rootItem.width - rootItem.indicator.height);
                     } else {
                         return undefined;
                     }
@@ -73,7 +113,7 @@ Popup {
                 };
             }
             function adjustTop() {
-                let y = tgPos.y - rootItem.height - rootItem.offset;
+                let y = tgPos.y - rootItem.height - rootItem.indicator.height;
                 if (y < 0) {
                     return undefined;
                 }
@@ -81,13 +121,13 @@ Popup {
                 if (p === undefined) {
                     return undefined;
                 }
-                triangle.x = p.aX;
-                triangle.y = rootItem.height;
-                triangle.rotation = 0;
+                rootItem.indicator.x = p.aX;
+                rootItem.indicator.y = y + rootItem.height;
+                rootItem.indicator.rotation = 0;
                 return Qt.point(p.x, y);
             }
             function adjustBottom() {
-                let y = tgPos.y + tg.height + rootItem.offset;
+                let y = tgPos.y + tg.height + rootItem.indicator.height;
                 if (y + rootItem.height > pH) {
                     return undefined;
                 }
@@ -95,8 +135,8 @@ Popup {
                 if (p === undefined) {
                     return undefined;
                 }
-                triangle.x = p.aX;
-                triangle.y = -rootItem.offset;
+                rootItem.indicator.x = p.aX;
+                rootItem.indicator.y = y - rootItem.indicator.height;
                 triangle.rotation = 180;
                 return Qt.point(p.x, y);
             }
@@ -105,11 +145,11 @@ Popup {
                 if (p === undefined) {
                     return undefined;
                 }
-                let x = tgPos.x + tg.width + rootItem.offset;
+                let x = tgPos.x + tg.width + rootItem.indicator.height;
                 if (x + rootItem.width > pW) {
                     return undefined;
                 }
-                triangle.x = -rootItem.offset;
+                triangle.x = x - rootItem.indicator.height;
                 triangle.y = p.aY;
                 triangle.rotation = 90;
                 return Qt.point(x, p.y);
@@ -119,11 +159,11 @@ Popup {
                 if (p === undefined) {
                     return undefined;
                 }
-                let x = tgPos.x - rootItem.width - offset;
+                let x = tgPos.x - rootItem.width - rootItem.indicator.height;
                 if (x < 0) {
                     return undefined;
                 }
-                triangle.x = rootItem.width;
+                triangle.x = x + rootItem.width;
                 triangle.y = p.aY;
                 triangle.rotation = -90;
                 return Qt.point(x, p.y);
@@ -175,17 +215,10 @@ Popup {
         }
     }
     contentItem: Rectangle {
-        color: "transparent"
-        implicitHeight: t.height
-        implicitWidth: t.width
-
-        Text {
-            id: t
-
-            color: "white"
-            padding: 10
-            text: rootItem.text
-        }
+        color: "blue"
+        data: [rootItem.content]
+        implicitHeight: rootItem.content.height
+        implicitWidth: rootItem.content.width
     }
     Behavior on scale  {
         NumberAnimation {
@@ -195,51 +228,13 @@ Popup {
     }
 
     Component.onCompleted: {
+        if (rootItem.indicator) {
+            rootItem.indicator.parent = rootItem.Overlay.overlay;
+        }
         if (rootItem.target && rootItem.target.parent) {
             rootItem.target.onXChanged.connect(() => updatePos());
             rootItem.target.onYChanged.connect(() => updatePos());
         }
         updatePos();
-    }
-
-    Shape {
-        id: triangle
-
-        height: width
-        visible: rootItem.visible
-        width: rootItem.offset
-
-        Component.onCompleted: {
-            console.log("triangle.renderType ", triangle.rendererType);
-        }
-
-        ShapePath {
-            fillColor: "#408E91"
-            strokeColor: "transparent"
-            strokeWidth: 0
-
-            PathMove {
-                x: triangle.width
-                y: 0
-            }
-
-            PathLine {
-                x: triangle.width / 2
-                y: triangle.height
-            }
-
-            PathLine {
-                x: 0
-                y: 0
-            }
-        }
-
-        Rectangle {
-            color: rootItem.background.color
-            height: rootItem.background.border.width
-            width: parent.width - 1.5
-            x: 1
-            y: -height
-        }
     }
 }

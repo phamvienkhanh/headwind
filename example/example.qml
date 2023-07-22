@@ -42,10 +42,6 @@ Window {
     visible: true
     width: 1000
 
-    onActiveFocusItemChanged: {
-        console.log("onActiveFocusItemChanged ", mainWindow.activeFocusItem);
-    }
-
     ListView {
         height: parent.height
         model: mainWindow.pages
