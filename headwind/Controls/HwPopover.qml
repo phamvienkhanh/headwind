@@ -21,9 +21,9 @@ Popup {
     property Item indicator: Shape {
         id: triangle
 
-        height: 30
+        height: 50
         visible: rootItem.visible
-        width: 20
+        width: 15
 
         ShapePath {
             fillColor: "black"
@@ -46,7 +46,7 @@ Popup {
             }
         }
     }
-    property int offset: 10
+
     property list<string> strategies: ["right", "bottom", "top", "left"]
     property Item target
     property string text
@@ -57,6 +57,7 @@ Popup {
             const tgPos = tg.parent.mapToItem(Overlay.overlay, tg.x, tg.y);
             const pH = rootItem.parent.height;
             const pW = rootItem.parent.width;
+            const indicatorRotateOffset = (rootItem.indicator.width - rootItem.indicator.height)/2
             let aPos;
             function adjustVertical() {
                 let y = tgPos.y + (tg.height - rootItem.height) / 2;
@@ -121,7 +122,7 @@ Popup {
                 if (p === undefined) {
                     return undefined;
                 }
-                rootItem.indicator.x = p.aX;
+                rootItem.indicator.x = p.aX - indicatorRotateOffset;
                 rootItem.indicator.y = y + rootItem.height;
                 rootItem.indicator.rotation = 0;
                 return Qt.point(p.x, y);
@@ -135,7 +136,7 @@ Popup {
                 if (p === undefined) {
                     return undefined;
                 }
-                rootItem.indicator.x = p.aX;
+                rootItem.indicator.x = p.aX - indicatorRotateOffset;
                 rootItem.indicator.y = y - rootItem.indicator.height;
                 triangle.rotation = 180;
                 return Qt.point(p.x, y);
@@ -149,8 +150,8 @@ Popup {
                 if (x + rootItem.width > pW) {
                     return undefined;
                 }
-                triangle.x = x - rootItem.indicator.height;
-                triangle.y = p.aY;
+                triangle.x = x - rootItem.indicator.height - indicatorRotateOffset;
+                triangle.y = p.aY + indicatorRotateOffset;
                 triangle.rotation = 90;
                 return Qt.point(x, p.y);
             }
@@ -163,8 +164,8 @@ Popup {
                 if (x < 0) {
                     return undefined;
                 }
-                triangle.x = x + rootItem.width;
-                triangle.y = p.aY;
+                triangle.x = x + rootItem.width - indicatorRotateOffset;
+                triangle.y = p.aY + indicatorRotateOffset;
                 triangle.rotation = -90;
                 return Qt.point(x, p.y);
             }
