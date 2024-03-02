@@ -67,7 +67,7 @@ Window {
 
         anchors.right: parent.right
         height: parent.height
-        initialItem: "Pages/TstHwPopover.qml"
+        initialItem: "Pages/TstHwRoundedImage.qml"
         width: parent.width - 150
     }
 }

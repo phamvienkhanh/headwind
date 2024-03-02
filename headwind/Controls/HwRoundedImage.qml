@@ -1,5 +1,5 @@
 import QtQuick
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects
 import Headwind
 
 Item {
@@ -11,26 +11,26 @@ Item {
 
     Image {
         id: imgSource
-
-        layer.enabled: true
         visible: false
         cache: false
+        antialiasing: true
     }
 
     HwRectangle {
         id: maskRec
-
         anchors.fill: imgSource
-        radius: [0, 0, 0, 0]
+        radius: [30, 0, 0, 0]
         color: "#FF0000"
         visible: false
         layer.enabled: true
     }
 
-    OpacityMask {
-        anchors.fill: imgSource
-        source: imgSource
-        maskSource: maskRec
-        cached: false
+    ShaderEffect {
+        readonly property Item iSource: imgSource
+        readonly property var opacityMaskSource: maskRec
+        readonly property bool opacityMaskInvert: false
+        vertexShader: "qrc:/Shaders/opacitymask.vert.qsb"
+        fragmentShader: "qrc:/Shaders/opacitymask.frag.qsb"
+        anchors.fill: parent
     }
 }

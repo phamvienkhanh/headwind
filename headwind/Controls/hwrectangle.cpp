@@ -12,6 +12,8 @@ HwRectangle::HwRectangle(QQuickItem *parent) : QQuickPaintedItem(parent)
     _radius = {0, 0, 0, 0};
 
     connect(this, &HwRectangle::radiusChanged, this, [&]() { update(); });
+    connect(this, &HwRectangle::widthChanged, this, [&]() { update(); });
+    connect(this, &HwRectangle::heightChanged, this, [&]() { update(); });
     connect(this, &HwRectangle::boderWidthChanged, this, [&]() { update(); });
     connect(this, &HwRectangle::colorChanged, this, [&]() { update(); });
     connect(this, &HwRectangle::boderColorChanged, this, [&]() { update(); });

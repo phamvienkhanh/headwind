@@ -6,7 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QT_QML_OUTPUT_DIRECTORY  ${CMAKE_BINARY_DIR})
 
-find_package(Qt6 6.5 COMPONENTS Quick Qml REQUIRED)
+find_package(Qt6 6.5 COMPONENTS Quick Qml ShaderTools REQUIRED)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -27,15 +27,27 @@ set(UTILS
     Utils/macros.h
 )
 
-source_group(Controls FILES ${CPP_CONTROLS} ${QMLS_CONTROLS})
-source_group(Utils FILES ${UTILS})
-
 qt_add_library(headwind SHARED)
 qt_add_qml_module(headwind
     URI Headwind
+    RESOURCE_PREFIX "/"
     VERSION 1.0
-    QML_FILES ${QMLS_CONTROLS}
-    SOURCES ${CPP_CONTROLS} ${UTILS}
+    QML_FILES
+        ${QMLS_CONTROLS}
+    SOURCES
+        ${CPP_CONTROLS}
+        ${UTILS}
+)
+
+qt_add_shaders(headwind "headwind_shaders"
+    PREFIX "/"
+    GLSL "300es,330"
+    BATCHABLE
+    PRECOMPILE
+    OPTIMIZED
+    FILES
+        Shaders/opacitymask.vert
+        Shaders/opacitymask.frag
 )
 
 set_target_properties(headwind PROPERTIES
